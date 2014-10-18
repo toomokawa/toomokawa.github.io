@@ -2,27 +2,80 @@
 
 body {
 	background: #f1f2f2;
+	color: #333;
+	width: 100%;
 }
 
 #wrapp {
-	padding: 15px 10px 0;
+	padding-top: 15px;
 }
+
+.carousel-container {
+	margin: 10px 0;
+	padding: 5px 5px 0;
+	border-top: 1px solid #ddd;
+	background: #fff;
+	overflow: hidden;
+}
+	.carousel-container h2 {
+		margin: 3px 0 10px;
+		padding-left: 5px;
+		height: 15px;
+		line-height: 15px;
+		border-left: 3px solid #ff9900;
+	}
+	.carousel-viewport {
+		width: 100%;
+		overflow-x: scroll;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-chaining: chained;
+		-webkit-transform: translateZ(0);
+	}
+	.carousel-viewport ol {
+		width: 3200px;
+		overflow-x: visible;
+	}
+		.carousel-viewport li {
+			float: left;
+			margin-left: 10px;
+			width: 150px;
+			display: inline-block;
+		}
+			.a-section {
+				height: 150px;
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.at-section {
+				display: block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				text-align: left;
+				font-size: 9px;
+			}
+				.at-section a {
+					color: #888;
+				}
+			.a-size-price {
+				color: #888;
+				font-size: 9px;
+				word-wrap: break-word;
+			}
 
 .description {
 	background: #fff;
 }
-
-.description h2 {
-	padding: 5px 0 5px 7px;
-	color: #fff;
-	background: #27254B;
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-}
-
-.description p {
-	padding: 7px 10px 3px;
-	word-wrap: break-word;
-	font-style: italic;
-}
+	.description h2 {
+		padding: 5px 0 5px 7px;
+		color: #fff;
+		background: #27254B;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;
+	}
+	.description p {
+		padding: 7px 10px 3px;
+		word-wrap: break-word;
+		font-style: italic;
+	}
