@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+body {
+	background: #f1f2f2;
+}
+
+#wrapp {
+	padding: 15px 10px 0;
+}
+
+.description {
+	background: #fff;
+}
+
+.description h2 {
+	padding: 5px 0 5px 7px;
+	color: #fff;
+	background: #27254B;
+	-webkit-position: sticky;
+	position: sticky;
+	top: 0;
+}
+
+.description p {
+	padding: 7px 10px 3px;
+	word-wrap: break-word;
+}
