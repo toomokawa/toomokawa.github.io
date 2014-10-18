@@ -33,7 +33,7 @@ body {
 		-webkit-transform: translateZ(0);
 	}
 	.carousel-viewport ol {
-		width: 3200px;
+		width: 3210px;
 		overflow-x: visible;
 	}
 		.carousel-viewport li {
@@ -41,6 +41,9 @@ body {
 			margin-left: 10px;
 			width: 150px;
 			display: inline-block;
+		}
+		.carousel-viewport li:last-child {
+			margin-right: 10px;
 		}
 			.a-section {
 				height: 150px;
