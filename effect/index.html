@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		body {
+			margin: 0;
+			padding: 0;
+			background: #84dbd7;
+		}
+		.scene {
+			position: absolute;
+			top: 1px;
+			bottom: 0;
+			left: 0;
+			overflow: hidden;
+			right: 0;
+			border-bottom: 50px solid #342a2a;
+			height: 600px;
+			width: 100%;
+		}
+		.scene > div {
+			position: absolute;
+			bottom: 0;
+		}
+
+		.scene .clouds {
+			margin-left: -447px;
+			width: 895px;
+			height: 253px;
+			top: -253px;
+			/*top: 0;*/
+			left: 50%;
+			/*bottom: 250px;*/
+			background: url(img/WYfbo0O.png) no-repeat center;
+		}
+		.scene .trees {
+			margin-left: -454px;
+			width: 908px;
+			height: 174px;
+			/*left: 50%;*/
+			/*left: -50%;*/
+			right: -100%;
+			bottom: 7px;
+			background: url(img/4JOfJhg.png) no-repeat center;
+			z-index: 100;
+		}
+		.scene div.grass {
+			margin-left: -482px;
+			width: 964px;
+			height: 37px;
+			/*left: 50%;*/
+			/*left: -50%;*/
+			right: -100%;
+			bottom: 7px;
+			background: url(img/h0aXbZr.png) no-repeat center;
+			z-index: 200;
+		}
+		.scene .buildings {
+			margin-left: -400px;
+			width: 763px;
+			height: 303px;
+			/*left: 50%;*/
+			left: -50%;
+			background: url(img/5LmAigM.png) no-repeat center;
+		}
+		.scene .google {
+			margin-left: -255px;
+			width: 538px;
+			height: 190px;
+			/*top: 150px;*/
+			top: -250px;
+			left: 50%;
+			background: url(img/logo11w.png) no-repeat center;
+		}
+		.scene .ground {
+			width: 100%;
+			height: 7px;
+			background: #1d1818;
+			z-index: 999;
+		}
+	</style>
+</head>
+<body>
+	<div class="scene">
+		<div class="clouds parallax"></div>
+		<div class="trees parallax"></div>
+		<div class="grass parallax"></div>
+		<div class="buildings parallax"></div>
+		<div class="google"></div>
+		<div class="ground"></div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('.clouds').animate({'top': 0}, 1900, function() {
+				$('.grass').animate({'right' : '20%'}, 2000);
+				$('.trees').animate({'right' : '21.6%'}, 2000);
+				$('.buildings').animate({'left' : '50%'}, 2200, function () {
+					$('.google').animate({'top' : 200}, 1500, function () {
+						$('.google').animate({'top' : 100}, 500, function () {
+							$('.google').animate({'top' : 150}, 500);
+						});
+					});
+				});
+			});
+		});
+	</script>
+</body>
+</html>
