@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<title>carousel translate ver.</title>
+	<style type="text/css">
+		html, body, div, ol, ul, li {
+		    margin:0;
+		    padding:0;
+		    border:0;
+		    outline:0;
+		    font-size:100%;
+		    vertical-align:baseline;
+		    background:transparent;
+		}
+
+		#wrapper {
+			margin: 0 auto;
+			padding: 10px 0;
+			width: 320px;
+			height: 1000px;
+			background: #f3f3f3;
+		}
+
+		#carousel-area {
+			width: 100%;
+			overflow: hidden;
+		}
+
+		#carousel-area ol {
+			list-style: none;
+			width: 3200px;
+			height: 112px;
+		}
+		#carousel-area li {
+			float: left;
+			margin-left: 16px;
+			overflow: visible;
+		}
+		#carousel-area li img {
+			width: 112px;
+			height: 112px;
+			display: table-cell;
+		}
+	</style>
+</head>
+<body>
+<div id="wrapper">
+	<div id="carousel-area">
+		<ol class="c-o">
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test2.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
+			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
+		</ol>
+	</div>
+	<div style="margin-top: 10px;"><button id="cl">slide</button></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function (){
+		var ww,
+			olWidth,
+			marginLeft,
+			slideWidth,
+			slideListTotal,
+			restWidth,
+			half;
+
+		ww = $('#wrapper').width();
+		marginLeft = 15;
+		
+		// 画面サイズに応じてliのスライドする数を決める
+		for (var i = 1; i <= $('.c-l').length; i++) {
+			slideWidth = ($('.c-l').width() + marginLeft) * i;
+			restWidth = ww - slideWidth;
+
+			// 画面サイズの横幅の余りが、liのスライド数の横幅より小さくなればブレーク
+			if (restWidth < slideWidth) {
+				slideListTotal = i;
+				break;
+			}
+		}
+
+		// 見切れるliが半分以下で表示されるまで、margin-leftを1pxずつ増やす
+		half = ($('.c-l').width() / 2);
+		while (half < ww - (slideWidth + marginLeft)) {
+			marginLeft += 1;
+			slideWidth = ($('.c-l').width() + marginLeft) * slideListTotal;
+		}
+
+		// olのwidthを再設定
+		olWidth = ($('.c-l').width() + marginLeft) * 25;
+		$('.c-o').css('width', olWidth+'px');
+
+		// liのmargin-leftを再設定
+		$('.c-l').each(function() {
+			$(this).css('margin-left', marginLeft + 'px');
+		});
+
+		var f = 288;
+		$('#cl').click(function() {
+			if (f !== 3744) {
+				$('.c-o').css({
+					'-webkit-transform':'translate3d(-'+f+'px, 0px, 0px)',
+					'-webkit-transition-duration':'0.5s'
+				});
+				f = f + 288;
+			} else {
+				$('.c-o').css({
+					'-webkit-transform':'translate3d(0px, 0px, 0px)',
+					'-webkit-transition-duration':'0.5s'
+				});
+				f = 288;
+			}
+		});
+	});
+</script>
+</body>
+</html>
