@@ -120,20 +120,21 @@
 			$(this).css('margin-left', marginLeft + 'px');
 		});
 
-		var f = 288;
+		// slide
+		var f = slideWidth;
 		$('#cl').click(function() {
-			if (f !== 3744) {
+			if (f !== (olWidth + ($('.c-l').width() + marginLeft))) {
 				$('.c-o').css({
 					'-webkit-transform':'translate3d(-'+f+'px, 0px, 0px)',
 					'-webkit-transition-duration':'0.5s'
 				});
-				f = f + 288;
+				f = f + slideWidth;
 			} else {
 				$('.c-o').css({
 					'-webkit-transform':'translate3d(0px, 0px, 0px)',
 					'-webkit-transition-duration':'0.5s'
 				});
-				f = 288;
+				f = slideWidth;
 			}
 		});
 	});
