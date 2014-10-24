@@ -39,7 +39,7 @@
 			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
 		</ol>
 	</div>
-	<div style="margin: 10px 0 0 10px;"><button id="cl">slide</button></div>
+	<div style="margin: 10px; position: relative;"><button id="prev" style="position: absolute; left: 0px;">prev</button><button id="next" style="position: absolute; right: 0px;">next</button></div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -49,9 +49,10 @@
 			marginLeft,
 			slideWidth,
 			slideListTotal,
+			slideCount,
 			restWidth,
 			half,
-			f,
+			slide,
 			lastSlide;
 
 		// 読み込み＆リサイズ時、liを調整
@@ -90,19 +91,33 @@
 
 			// スライドされる最後のマイナス値を取得
 			// リサイズの場合はリストを先頭に戻す
-			f = 0;
-			lastSlide = olWidth - ($('.c-l').width() + marginLeft);
-			$('.c-o').css('-webkit-transform', 'translate3d(' + f + 'px, 0px, 0px)');
+			slide = 0;
+			slideCount = Math.floor($('.c-l').length / slideListTotal);
+			if (5 === slideCount) slideCount = slideCount - 1;
+			lastSlide = slideWidth * slideCount;
+			$('.c-o').css('-webkit-transform', 'translate3d(' + slide + 'px, 0px, 0px)');
 		});
 
 		// slide
-		$('#cl').click(function() {
-			if (-f === lastSlide) {
+		$('#next').click(function() {
+			if (-slide === lastSlide) {
 				return;
 			} else {
-				f = f - slideWidth;	
+				slide = slide - slideWidth;	
 				$('.c-o').css({
-					'-webkit-transform':'translate3d(' + f + 'px, 0px, 0px)',
+					'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
+					'-webkit-transition-duration':'0.5s'
+				});
+			}
+		});
+
+		$('#prev').click(function() {
+			if (0 === slide) {
+				return;
+			} else {
+				slide = slide + slideWidth;	
+				$('.c-o').css({
+					'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
 					'-webkit-transition-duration':'0.5s'
 				});
 			}
