@@ -78,23 +78,24 @@ body {
 		top:0;
 	}
 	.description p {
-		padding:0 12px;
 		height:40px;
 		line-height:40px;
 		word-wrap:break-word;
 		position:relative;
 	}
-	.description p:after {
+	.description p a {
+		padding:0 12px;
+		display:block;
+	}
+	.description a:after {
 		content:"";
 		position:absolute;
 		top:10px;
-		right:0;
+		right:0px;
 		border:10px solid transparent;
 		border-left-color:#00897b;
 	}
-	.description p:hover {
+	.description a:hover {
 		background:#e0f2f1;
-	}
-	.description p a {
-		display:block;
+		-webkit-tap-highlight-color:#e0f2f1;
 	}
