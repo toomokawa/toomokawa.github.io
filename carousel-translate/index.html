@@ -59,6 +59,7 @@
 
 		// 読み込み＆リサイズ時、liを調整
 		$(window).on('load resize', function() {
+			if (windowWidth === $(window).width()) return;
 			windowWidth = $(window).width();
 			marginLeft = 15;
 			half = ($('.c-l').width() / 2);
