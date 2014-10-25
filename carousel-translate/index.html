@@ -41,6 +41,7 @@
 			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
 		</ol>
 	</div>
+	<div id="aaaa"></div>
 	<div style="margin: 10px; position: relative;"><button id="prev" style="position: absolute; left: 0px;">prev</button><button id="next" style="position: absolute; right: 0px;">next</button></div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -59,6 +60,7 @@
 
 		// 読み込み＆リサイズ時、liを調整
 		$(window).on('load resize', function() {
+			$('#aaaa').text($(window).width());
 			if (windowWidth === $(window).width()) return;
 			windowWidth = $(window).width();
 			marginLeft = 15;
