@@ -19,6 +19,7 @@ header {
 	font-size:25px;
 	text-align:center;
 	/*box-shadow:0px 2px 5px rgba(0,0,0,0.25);*/
+	text-shadow:2px 3px 0 #009680, 5px 4px 0px rgba(0, 0, 0, 0.15);
 }
 	header a {
 		display:block;
