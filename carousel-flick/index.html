@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<title>flick</title>
+	<style type="text/css">
+		body, div {
+			margin:0;
+			padding:0;
+		}
+		body {
+			background:#f1f2f2;
+		}
+		#flick {
+			margin:10px auto 0;
+			width:300px;
+			height:160px;
+			background:#ddd;
+			overflow:hidden;
+		}
+		#flick ul {
+			margin: 5px 0;
+			padding:0;
+			width:3100px;
+			height:150px;
+		}
+		#flick li {
+			float:left;
+			margin-left:15px;
+			width:140px;
+			height:150px;
+			background:#009680;
+			list-style:none;
+		}
+	</style>
+</head>
+<body>
+<div id="flick">
+	<ul id="carousel" style="-webkit-transform:translate3d(0px, 0px, 0px);">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<div id="ts_width"></div>
+<div id="tm_width"></div>
+<div id="mi_width"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var touchX, slideX;
+
+	$('#carousel').bind({
+		'touchstart' : function(e) {
+			touchX = Math.floor(event.changedTouches[0].pageX);
+			slideX = new WebKitCSSMatrix($(this).css('-webkit-transform'));
+			slideX = Math.floor(slideX.e);
+		},
+
+		'touchmove' : function(e) {
+			e.preventDefault();
+
+			slideX = Math.floor(slideX - (touchX - event.changedTouches[0].pageX));
+			$(this).css('-webkit-transform', 'translate3d(' + slideX + 'px, 0px, 0px)');
+			
+			touchX = Math.floor(event.changedTouches[0].pageX);
+		},
+
+		'touchend' : function(e) {
+			console.log('stop : ' + slideX);
+			if (slideX > 0) {
+				slideX = 0;
+			} else if (slideX < -2945) {
+				slideX = -2945;
+			}
+			$(this).css('-webkit-transform', 'translate3d(' + slideX + 'px, 0px, 0px)');
+		}
+	});
+
+	// var ts_w, tm_w, nobi, ul_x;
+	// ts_w = 0;
+	// tm_w = 0;
+	// nobi = 0;
+
+	// $('#flick').bind('touchstart', function() {
+	// 	event.preventDefault();
+	// 	ts_w = Math.floor(event.changedTouches[0].pageX);
+	// 	$('#ts_width').text(ts_w);
+	// });
+	// $('#flick').bind('touchmove', function() {
+	// 	event.preventDefault();
+	// 	tm_w = Math.floor(event.changedTouches[0].pageX);
+	// 	$('#tm_width').text(tm_w);
+
+
+	// 	nobi = ts_w - tm_w;
+	// 	ul_x = new WebKitCSSMatrix($('#carousel').css('-webkit-transform'));
+	// 	ul_x = ul_x.e - nobi;
+	// 	$('#carousel').css('-webkit-transform', 'translate3d(' + ul_x + 'px, 0px, 0px)');
+	// });
+	// $('#flick').bind('touchend', function() {
+	// 	$('#mi_width').text(ts_w - tm_w);
+	// });
+
+	// $('#carousel').click(function() {
+	// 	var m = new WebKitCSSMatrix($('#carousel').css('-webkit-transform'));
+	// 	console.log(m.e);
+	// });
+});
+</script>
+</body>
+</html>
