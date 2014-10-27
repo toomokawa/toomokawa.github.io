@@ -3,12 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<link rel="stylesheet" type="text/css" href="../reset.css">
+	<link rel="stylesheet" type="text/css" href="../common.css">
+	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 	<title>flick</title>
 	<style type="text/css">
-		body, div {
-			margin:0;
-			padding:0;
-		}
 		body {
 			background:#f1f2f2;
 		}
@@ -36,33 +35,31 @@
 	</style>
 </head>
 <body>
-<div id="flick">
-	<ul id="carousel" style="-webkit-transform:translate3d(0px, 0px, 0px);">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-</div>
-<div id="ts_width"></div>
-<div id="tm_width"></div>
-<div id="mi_width"></div>
+	<header><a href="/">Site Title</a></header>
+	<div id="flick">
+		<ul id="carousel" style="-webkit-transform:translate3d(0px, 0px, 0px);">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -91,7 +88,10 @@ $(function() {
 			} else if (slideX < -2945) {
 				slideX = -2945;
 			}
-			$(this).css('-webkit-transform', 'translate3d(' + slideX + 'px, 0px, 0px)');
+			$(this).css({
+				'-webkit-transform' : 'translate3d(' + slideX + 'px, 0px, 0px)',
+				'-webkit-transition-duration' : '0.5s'
+			});
 		}
 	});
 
