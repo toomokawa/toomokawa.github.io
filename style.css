@@ -27,16 +27,16 @@ body {
 		height:39px;
 		line-height:39px;
 		word-wrap:break-word;
-		/*position:relative;*/
 		border-bottom:1px solid #80cbc4;
 	}
 	.genres p:last-child {
 		border:none;
 	}
 		.genres p a {
-			margin:0 12px;
+			padding:0 12px;
 			display:block;
-			background: url(img/arrow.png) no-repeat right center;
+			background: url(img/arrow.png) no-repeat 99% center;
+			background-size:  16px 16px;
 		}
 /*		.genres a:after {
 			content:"";
