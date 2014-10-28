@@ -12,6 +12,7 @@
 <body>
 <div id="wrapper">
 	<header><a href="/">Site Title</a></header>
+	<h2 class="page-title">carousel translate</h2>
 	<div id="carousel-area">
 		<ol class="c-o">
 			<li class="c-l" style="width: 112px;"><img src="img/test1.jpg"></li>
@@ -41,9 +42,7 @@
 			<li class="c-l" style="width: 112px;"><img src="img/test3.jpg"></li>
 		</ol>
 	</div>
-	<div id="aaa"></div>
-	<div id="bbb"></div>
-	<div style="margin: 10px; position: relative;"><button id="prev" style="position: absolute; left: 0px;">prev</button><button id="next" style="position: absolute; right: 0px;">next</button></div>
+<!-- 	<div style="margin: 10px; position: relative;"><button id="prev" style="position: absolute; left: 0px;">prev</button><button id="next" style="position: absolute; right: 0px;">next</button></div> -->
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -61,8 +60,6 @@
 
 		// 読み込み＆リサイズ時、liを調整
 		$(window).on('load resize', function() {
-			$('#aaa').text($(window).width());
-			$('#bbb').text($(window).height());
 			if (windowWidth === $(window).width()) return;
 			windowWidth = $(window).width();
 			marginLeft = 15;
@@ -106,27 +103,65 @@
 		});
 
 		// slide
-		$('#next').click(function() {
-			if (-slide === lastSlide) {
-				return;
-			} else {
-				slide = slide - slideWidth;	
-				$('.c-o').css({
-					'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
-					'-webkit-transition-duration':'0.5s'
-				});
-			}
-		});
+		// $('#next').click(function() {
+		// 	if (-slide === lastSlide) {
+		// 		return;
+		// 	} else {
+		// 		slide = slide - slideWidth;	
+		// 		$('.c-o').css({
+		// 			'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
+		// 			'-webkit-transition-duration':'0.5s'
+		// 		});
+		// 	}
+		// });
 
-		$('#prev').click(function() {
-			if (0 === slide) {
-				return;
-			} else {
-				slide = slide + slideWidth;	
-				$('.c-o').css({
-					'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
-					'-webkit-transition-duration':'0.5s'
-				});
+		// $('#prev').click(function() {
+		// 	if (0 === slide) {
+		// 		return;
+		// 	} else {
+		// 		slide = slide + slideWidth;	
+		// 		$('.c-o').css({
+		// 			'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
+		// 			'-webkit-transition-duration':'0.5s'
+		// 		});
+		// 	}
+		// });
+
+		// slide
+		var touchX, slideX;
+		$('.c-o').bind({
+			'touchstart' : function(e) {
+				touchX = Math.floor(event.changedTouches[0].pageX);
+				slideX = new WebKitCSSMatrix($(this).css('-webkit-transform'));
+				slideX = Math.floor(slideX.e);
+			},
+
+			'touchmove' : function(e) {
+				e.preventDefault();
+
+				slideX = Math.floor(slideX - (touchX - event.changedTouches[0].pageX));
+				$(this).css('-webkit-transform', 'translate3d(' + slideX + 'px, 0px, 0px)');
+				
+				touchX = Math.floor(event.changedTouches[0].pageX);
+			},
+
+			'touchend' : function(e) {
+				if (slideX > 0 || slideX < -lastSlide) {
+					if (slideX > 0) {
+						slideX = 0;
+					} else if (slideX < -lastSlide) {
+						slideX = -lastSlide;
+					}
+					$(this).css({
+						'-webkit-transform' : 'translate3d(' + slideX + 'px, 0px, 0px)',
+						'-webkit-transition' : '-webkit-transform 700ms cubic-bezier(0,0,0.25,1)'
+					});
+				} else {
+					$(this).css({
+						'-webkit-transform' : 'translate3d(' + slideX + 'px, 0px, 0px)',
+						'-webkit-transition': ''
+					});
+				}
 			}
 		});
 	});

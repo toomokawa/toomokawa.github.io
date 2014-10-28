@@ -8,9 +8,9 @@ a{
 }
 
 
-/*******************
+/*
  Header
- *******************/
+ */
 header {
 	width:100%;
 	height:50px;
@@ -26,3 +26,14 @@ header {
 		display:block;
 		color:#fff;
 	}
+
+/*
+ * Page Title
+ */
+h2.page-title {
+	margin:3px 0 10px 5px;
+	padding-left:7px;
+	height:19px;
+	line-height:16px;
+	border-left:3px solid #00897b;
+}
