@@ -119,7 +119,7 @@
 		// 	if (0 === slide) {
 		// 		return;
 		// 	} else {
-		// 		slide = slide + slideWidth;	
+		// 		slide = slide + slideWidth;
 		// 		$('.c-o').css({
 		// 			'-webkit-transform':'translate3d(' + slide + 'px, 0px, 0px)',
 		// 			'-webkit-transition-duration':'0.5s'
@@ -129,9 +129,11 @@
 
 		// slide
 		var touchX, slideX;
+		var touchS, touchM, touchE;
 		$('.c-o').bind({
 			'touchstart' : function(e) {
 				touchX = Math.floor(event.changedTouches[0].pageX);
+				touchS = Math.floor(event.changedTouches[0].pageX);
 				slideX = new WebKitCSSMatrix($(this).css('-webkit-transform'));
 				slideX = Math.floor(slideX.e);
 			},
@@ -143,25 +145,26 @@
 				$(this).css('-webkit-transform', 'translate3d(' + slideX + 'px, 0px, 0px)');
 				
 				touchX = Math.floor(event.changedTouches[0].pageX);
+				touchM = Math.floor(event.changedTouches[0].pageX);
 			},
 
 			'touchend' : function(e) {
-				if (slideX > 0 || slideX < -lastSlide) {
-					if (slideX > 0) {
-						slideX = 0;
-					} else if (slideX < -lastSlide) {
-						slideX = -lastSlide;
-					}
-					$(this).css({
-						'-webkit-transform' : 'translate3d(' + slideX + 'px, 0px, 0px)',
-						'-webkit-transition' : '-webkit-transform 700ms cubic-bezier(0,0,0.25,1)'
-					});
+				if (slideX > 0) {
+					slide = 0;
+				} else if (slideX < -lastSlide) {
+					slide = -lastSlide;
 				} else {
-					$(this).css({
-						'-webkit-transform' : 'translate3d(' + slideX + 'px, 0px, 0px)',
-						'-webkit-transition': ''
-					});
+					touchE = touchM - touchS;
+					if (touchE > 0) {
+						slide = slide + slideWidth;
+					} else {
+						slide = slide - slideWidth;
+					}
 				}
+				$(this).css({
+					'-webkit-transform' : 'translate3d(' + slide + 'px, 0px, 0px)',
+					'-webkit-transition' : '-webkit-transform 700ms cubic-bezier(0,0,0.25,1)'
+				});
 			}
 		});
 	});
