@@ -52,6 +52,7 @@
 			marginLeft,
 			slideWidth,
 			slideListTotal,
+			slideListCounts,
 			slideCount,
 			restWidth,
 			half,
@@ -59,8 +60,17 @@
 			lastSlide;
 
 		// 読み込み＆リサイズ時、liを調整
-		$(window).on('load resize', function() {
-			if (windowWidth === $(window).width()) return;
+		$(window).on({
+			load: function() {
+				slideSet('load');
+			},
+			resize: function() {
+				if (windowWidth === $(window).width()) return;
+				slideSet('resize');
+			}
+		});
+
+		function slideSet (param) {
 			windowWidth = $(window).width();
 			marginLeft = 15;
 			half = ($('.c-l').width() / 2);
@@ -93,14 +103,65 @@
 				$(this).css('margin-left', marginLeft + 'px');
 			});
 
-			// スライドされる最後のマイナス値を取得
-			// リサイズの場合はリストを先頭に戻す
-			slide = 0;
+			// 表示位置を調整
+			if ('load' === param) {
+				slideListCounts = 0;
+				slide = 0;
+			} else if ('resize' === param) {
+				slide = ($('.c-l').width() + marginLeft) * slideListCounts;
+				if (0 < slide) slide = -slide;
+				$('.c-o').css('-webkit-transition', '');
+			}
+			$('.c-o').css('-webkit-transform', 'translate3d(' + slide + 'px, 0px, 0px)');
+
+			// スライドされる値を調整
 			slideCount = Math.floor($('.c-l').length / slideListTotal);
 			if (5 === slideCount) slideCount = slideCount - 1;
 			lastSlide = slideWidth * slideCount;
-			$('.c-o').css('-webkit-transform', 'translate3d(' + slide + 'px, 0px, 0px)');
-		});
+		}
+
+		// $(window).on('load resize', function() {
+		// 	if (windowWidth === $(window).width()) return;
+		// 	windowWidth = $(window).width();
+		// 	marginLeft = 15;
+		// 	half = ($('.c-l').width() / 2);
+
+		// 	// 画面サイズに応じてliのスライドする数を決める
+		// 	for (var i = 1; i <= $('.c-l').length; i++) {
+		// 		slideWidth = ($('.c-l').width() + marginLeft) * i;
+
+		// 		// 画面サイズ - スライド横幅 < margin-leftだった場合、ブレーク
+		// 		restWidth = windowWidth - slideWidth;
+		// 		if (restWidth < marginLeft) {
+		// 			slideListTotal = i - 1;
+		// 			slideWidth = ($('.c-l').width() + marginLeft) * slideListTotal;
+		// 			break;
+		// 		}
+		// 	}
+
+		// 	// 見切れるliが半分以下で表示されるまで、margin-leftを1pxずつ増やす
+		// 	while (half < windowWidth - (slideWidth + marginLeft)) {
+		// 		marginLeft += 1;
+		// 		slideWidth = ($('.c-l').width() + marginLeft) * slideListTotal;
+		// 	}
+
+		// 	// olのwidthを再設定
+		// 	olWidth = ($('.c-l').width() + marginLeft) * 25;
+		// 	$('.c-o').css('width', olWidth+'px');
+
+		// 	// liのmargin-leftを再設定
+		// 	$('.c-l').each(function() {
+		// 		$(this).css('margin-left', marginLeft + 'px');
+		// 	});
+
+		// 	// スライドされる最後のマイナス値を取得
+		// 	// リサイズの場合はリストを先頭に戻す
+		// 	slide = 0;
+		// 	slideCount = Math.floor($('.c-l').length / slideListTotal);
+		// 	if (5 === slideCount) slideCount = slideCount - 1;
+		// 	lastSlide = slideWidth * slideCount;
+		// 	$('.c-o').css('-webkit-transform', 'translate3d(' + slide + 'px, 0px, 0px)');
+		// });
 
 		// slide
 		// $('#next').click(function() {
@@ -157,8 +218,10 @@
 					touchE = touchM - touchS;
 					if (touchE > 0) {
 						slide = slide + slideWidth;
+						slideListCounts = slideListCounts - slideListTotal;
 					} else {
 						slide = slide - slideWidth;
+						slideListCounts = slideListCounts + slideListTotal;
 					}
 				}
 				$(this).css({
