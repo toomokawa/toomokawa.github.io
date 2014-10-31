@@ -210,18 +210,31 @@
 			},
 
 			'touchend' : function(e) {
-				if (slideX > 0) {
+				if (0 < slideX) {
 					slide = 0;
-				} else if (slideX < -lastSlide) {
+				} else if (-lastSlide > slideX) {
 					slide = -lastSlide;
 				} else {
 					touchE = touchM - touchS;
 					if (touchE > 0) {
+						// rtl
 						slide = slide + slideWidth;
-						slideListCounts = slideListCounts - slideListTotal;
+						if (0 < slide) {
+							slide = 0;
+							slideListCounts = 1;
+						} else {
+							slideListCounts = slideListCounts - slideListTotal;
+						}
 					} else {
+						// ltr
 						slide = slide - slideWidth;
-						slideListCounts = slideListCounts + slideListTotal;
+						if (-lastSlide > slide) {
+							slide = -lastSlide;
+							slideListCounts = slideListCounts + slideListTotal;
+						} else {
+							slideListCounts = 25;
+						}
+
 					}
 				}
 				$(this).css({
