@@ -189,8 +189,8 @@
 		// });
 
 		// slide
-		var touchX, slideX;         // touchX=touchのX座標　　slideX=スライドされているX座標
-		var touchS, touchM, touchE; // touchS=最初のタッチ位置　touchM=タッチ移動　touchE=touchM-touchSの計算距離
+		var touchX, slideX;
+		var touchS, touchM, touchE;
 		$('.c-o').bind({
 			'touchstart' : function(e) {
 				touchX = Math.floor(event.changedTouches[0].pageX);
@@ -210,33 +210,6 @@
 			},
 
 			'touchend' : function(e) {
-				// touchEにスライドされた数値を入れる
-				touchE = touchM - touchS;
-
-				// touchEの数値の絶対値で50未満だった場合、スライドさせない
-				if (50 < Math.abs(touchE)) {
-					if (0 < touchE) {
-						// rtl
-						slide = slide + slideWidth;
-						if (0 < slide) {
-							slide = 0;
-							slideListCounts = 1;
-						} else {
-							slideListCounts = slideListCounts - slideListTotal;
-						}
-					} else {
-						// ltr
-						slide = slide - slideWidth;
-						if (-lastSlide > slide) {
-							slide = -lastSlide;
-							slideListCounts = slideListCounts + slideListTotal;
-						} else {
-							slideListCounts = 25;
-						}
-
-					}
-				}
-				/*
 				if (0 < slideX) {
 					slide = 0;
 				} else if (-lastSlide > slideX) {
@@ -264,7 +237,6 @@
 
 					}
 				}
-				*/
 				$(this).css({
 					'-webkit-transform' : 'translate3d(' + slide + 'px, 0px, 0px)',
 					'-webkit-transition' : '-webkit-transform 700ms cubic-bezier(0,0,0.25,1)'
